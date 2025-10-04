@@ -1,19 +1,40 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./Homepage.css";
+// src/Homepage.jsx
 
-export default function Homepage() {
-  const navigate = useNavigate();
+import React from 'react';
+import './Homepage.css';
+
+
+import backgroundImage from './assets/space.jpg'; 
+
+export default function Homepage({ onEnter }) {
+  const handleExplore = () => {
+    onEnter(); 
+  };
 
   return (
-    <div className="homepage-container">
-      <header className="homepage-header">
-        <h1>🚀 Welcome to NASA Exoplanet Hunter</h1>
-        <p>Explore distant worlds and discover exoplanets!</p>
-        <button className="explore-btn" onClick={() => navigate("/main")}>
-          Explore Now
+    <div 
+      className="homepage-container"
+      style={{ 
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover'
+      }}
+    >
+      
+      <div className="welcome-box centered-content">
+        <h1 className="title">EXOPLANETS</h1>
+        <p className="subtitle">Discover new worlds.</p>
+        
+        <button className="explore-button" onClick={handleExplore}>
+          EXPLORE FURTHER
         </button>
-      </header>
+        
+        <div className="scroll-indicator">
+          <span className="arrow-down"></span>
+        </div>
+      </div>
     </div>
   );
-}
+} 

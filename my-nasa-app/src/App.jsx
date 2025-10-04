@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Scene from "./Scene.jsx";
 import Homepage from "./Homepage.jsx"; 
-import MainApp from "./MainApp.jsx";
+import MainApp from "./MainApp.jsx"; // Still unused, but kept for future
 
 // --- Mock Data for Demo Mode ---
 const MOCK_PLANET_DATA = {
@@ -18,6 +18,7 @@ const MOCK_FALSE_POSITIVE_DATA = {
 
 // --- Validator for Manual Mode ---
 function validateExoplanetData(_data) {
+  // For presentation purposes, this function now always returns a positive result.
   return {
     is_planet: true,
     details: "Data is consistent with a planetary body. Analysis successful.",
@@ -102,6 +103,8 @@ function DataInputForm({ formData, setFormData, onAnalyze, isAnalyzing }) {
 
 // --- Main App Component ---
 export default function App() {
+  // START WITH HOMEPAGE VISIBLE
+  const [showHomepage, setShowHomepage] = useState(true); 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [analysisMode, setAnalysisMode] = useState("demo");
@@ -138,58 +141,75 @@ export default function App() {
   const handleReset = () => {
     setAnalysisResult(null);
   };
+  
+  // FUNCTION TO TRANSITION TO MAIN APP
+  const handleEnterApp = () => {
+    setShowHomepage(false);
+  };
 
   return (
     <>
-      <Homepage onEnter={() => setAnalysisResult(null)} />
-      <Scene analysisResult={analysisResult} />
-      <div className="ui-container">
-        <h1 className="title">A World Away: Exoplanet Hunter</h1>
+      {/* LOGIC: If showHomepage is TRUE, render Homepage. 
+        If showHomepage is FALSE, render Scene AND the main UI container. 
+      */}
+      {showHomepage ? (
+        // RENDER HOMEPAGE (This is the full-screen background component)
+        <Homepage onEnter={handleEnterApp} /> 
+      ) : (
+        // RENDER MAIN APPLICATION (Scene and UI controls)
+        <>
+          <Scene analysisResult={analysisResult} />
 
-        {analysisResult && (
-          <ResultsPanel result={analysisResult} onReset={handleReset} />
-        )}
+          <div className="ui-container">
+            {/* Simple App Title */}
+            <h1 className="title">Exoplanet Hunter Console</h1> 
 
-        {!analysisResult && (
-          <>
-            <div className="mode-selector">
-              <button
-                className={`mode-button ${
-                  analysisMode === "demo" ? "active" : ""
-                }`}
-                onClick={() => setAnalysisMode("demo")}
-              >
-                Demo Mode
-              </button>
-              <button
-                className={`mode-button ${
-                  analysisMode === "manual" ? "active" : ""
-                }`}
-                onClick={() => setAnalysisMode("manual")}
-              >
-                Manual Input
-              </button>
-            </div>
-
-            {analysisMode === "demo" ? (
-              <button
-                className="analyze-button"
-                onClick={handleAnalyze}
-                disabled={isAnalyzing}
-              >
-                {isAnalyzing ? "Analyzing..." : "Run Random Demo"}
-              </button>
-            ) : (
-              <DataInputForm
-                formData={formData}
-                setFormData={setFormData}
-                onAnalyze={handleAnalyze}
-                isAnalyzing={isAnalyzing}
-              />
+            {analysisResult && (
+              <ResultsPanel result={analysisResult} onReset={handleReset} />
             )}
-          </>
-        )}
-      </div>
+
+            {!analysisResult && (
+              <>
+                <div className="mode-selector">
+                  <button
+                    className={`mode-button ${
+                      analysisMode === "demo" ? "active" : ""
+                    }`}
+                    onClick={() => setAnalysisMode("demo")}
+                  >
+                    Demo Mode
+                  </button>
+                  <button
+                    className={`mode-button ${
+                      analysisMode === "manual" ? "active" : ""
+                    }`}
+                    onClick={() => setAnalysisMode("manual")}
+                  >
+                    Manual Input
+                  </button>
+                </div>
+
+                {analysisMode === "demo" ? (
+                  <button
+                    className="analyze-button"
+                    onClick={handleAnalyze}
+                    disabled={isAnalyzing}
+                  >
+                    {isAnalyzing ? "Analyzing..." : "Run Random Demo"}
+                  </button>
+                ) : (
+                  <DataInputForm
+                    formData={formData}
+                    setFormData={setFormData}
+                    onAnalyze={handleAnalyze}
+                    isAnalyzing={isAnalyzing}
+                  />
+                )}
+              </>
+            )}
+          </div>
+        </>
+      )}
     </>
   );
-}
+} 
