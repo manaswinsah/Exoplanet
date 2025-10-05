@@ -1,4 +1,4 @@
-// src/Homepage.jsx - Working Version (No Extra Dependencies Needed)
+// src/Homepage2.jsx - COMPLETE MODIFIED VERSION (CLEAR PLANET + TRANSPARENT BUTTON)
 import React, { useRef, useState, useEffect, Suspense, useMemo } from 'react'; 
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { 
@@ -15,23 +15,21 @@ import backgroundImage from './assets/space.png';
 import planetTexture from './assets/OIP.webp';
 import asteroidTexture1 from './assets/ast.jpg'; 
 import asteroidTexture2 from './assets/asteroid2.png';
+import ringsystemTexture from './assets/ringsystem.png';
 
+// --- CLEAR PLANET (NO WHITE LAYER) ---
 function SpinningPlanet({ mapTexture, ...props }) {
   const meshRef = useRef();
-  const cloudRef = useRef();
+  const ringsystemRef = useRef();
   const texture = useTexture(mapTexture);
   
   const [hovered, setHovered] = useState(false);
   const scale = hovered ? [1.1, 1.1, 1.1] : [1, 1, 1];
-
+  const ringTexture = useTexture(ringsystemTexture);
   useFrame((state, delta) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += delta * 0.1;
       meshRef.current.rotation.x = 0.2;
-    }
-   
-    if (cloudRef.current) {
-      cloudRef.current.rotation.y += delta * 0.15;
     }
   });
 
@@ -43,44 +41,32 @@ function SpinningPlanet({ mapTexture, ...props }) {
         onPointerOut={() => setHovered(false)}
         {...props}
       >
-        {/* Planet Core with better materials */}
+        {/* Planet Core - CLEAN AND CLEAR */}
         <mesh ref={meshRef}>
           <sphereGeometry args={[props.size, 128, 128]} />
           <meshStandardMaterial 
             map={texture}
-            roughness={0.8}
-            metalness={0.2}
-            emissive={new THREE.Color(0x1a1a2e)}
-            emissiveIntensity={0.1}
+            roughness={0.7}
+            metalness={0.1}
+            emissive={new THREE.Color(0x000000)}
+            emissiveIntensity={0}
           />
         </mesh>
 
-        {/* Cloud Layer */}
-        <mesh ref={cloudRef} scale={[1.02, 1.02, 1.02]}>
-          <sphereGeometry args={[props.size, 64, 64]} />
-          <meshStandardMaterial
-            transparent
-            opacity={0.3}
-            color="#ffffff"
-            emissive="#4a90e2"
-            emissiveIntensity={0.1}
-          />
-        </mesh>
-
-        {/* Atmosphere Glow */}
-        <mesh scale={[1.15, 1.15, 1.15]}>
+        {/* Subtle Atmosphere Glow - REDUCED */}
+        <mesh scale={[1.08, 1.08, 1.08]}>
           <sphereGeometry args={[props.size, 32, 32]} />
           <meshBasicMaterial
             color="#4a90e2"
             transparent
-            opacity={0.15}
+            opacity={0.05}
             blending={THREE.AdditiveBlending}
             side={THREE.BackSide}
           />
         </mesh>
 
-        {/* Fresnel Rim Light Effect */}
-        <mesh scale={[1.05, 1.05, 1.05]}>
+        {/* Minimal Rim Light - ONLY VISIBLE ON EDGES */}
+        <mesh scale={[1.03, 1.03, 1.03]}>
           <sphereGeometry args={[props.size, 64, 64]} />
           <shaderMaterial
             transparent
@@ -105,8 +91,8 @@ function SpinningPlanet({ mapTexture, ...props }) {
               void main() {
                 vec3 normal = normalize(vNormal);
                 vec3 viewDir = normalize(vViewPosition);
-                float intensity = pow(0.8 - dot(normal, viewDir), 2.0);
-                gl_FragColor = vec4(color, 1.0) * intensity;
+                float intensity = pow(0.9 - dot(normal, viewDir), 3.0);
+                gl_FragColor = vec4(color, 1.0) * intensity * 0.3;
               }
             `}
           />
@@ -320,7 +306,7 @@ export default function Homepage({ onEnter }) {
             <BackgroundSphere mapTexture={backgroundImage} />
             <ParticleField />
             
-            {/* Main Planet */}
+            {/* Main Planet - CLEAR VERSION */}
             <SpinningPlanet 
               mapTexture={planetTexture} 
               position={[0, -2, -1]} 
@@ -392,10 +378,10 @@ export default function Homepage({ onEnter }) {
             <span className="button-icon">→</span>
           </button>
           
-          <div className="scroll-indicator">
+          {/* <div className="scroll-indicator">
             <span>Scroll to interact</span>
             <div className="scroll-arrow"></div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

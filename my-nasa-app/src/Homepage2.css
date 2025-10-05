@@ -1,7 +1,7 @@
-/* Homepage.css */
+/* src/Homepage2.css (FULL MODIFIED VERSION - NO BOX + CLEAR PLANET) */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
 
-/* CSS Variables for consistent theming */
+/* CSS Variables */
 :root {
   --primary-color: #4a90e2;
   --secondary-color: #1a1a2e;
@@ -11,7 +11,7 @@
   --glow-color: rgba(74, 144, 226, 0.6);
 }
 
-/* Base Styles */
+/* --- Base Styles and Full-Screen Containers --- */
 .homepage-wrapper {
   position: relative;
   width: 100vw;
@@ -35,7 +35,7 @@
   z-index: 1;
 }
 
-/* UI Overlay with Glass Morphism */
+/* --- UI Overlay --- */
 .ui-overlay {
   position: absolute;
   top: 0;
@@ -49,26 +49,30 @@
   justify-content: center;
 }
 
+/* NO VISIBLE BOX - Just floating text */
 .welcome-box {
   pointer-events: auto;
   text-align: center;
-  padding: 60px 40px;
-  background: linear-gradient(
-    135deg,
-    rgba(26, 26, 46, 0.7),
-    rgba(74, 144, 226, 0.1)
-  );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  box-shadow: 
-    0 8px 32px 0 rgba(74, 144, 226, 0.2),
-    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  
+  /* COMPLETELY INVISIBLE BOX */
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
   animation: slideUp 1s ease-out 0.5s both;
 }
 
-/* Title Styles with Glitch Effect */
+/* Add centered-content class if not already present */
+.centered-content {
+  position: relative;
+  z-index: 100;
+}
+
+
+/* --- Title and Text Effects --- */
 .title-container {
   position: relative;
   margin-bottom: 20px;
@@ -76,7 +80,7 @@
 
 .title {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 7vw, 5rem);
   font-weight: 900;
   color: var(--text-primary);
   margin: 0;
@@ -84,7 +88,9 @@
   text-shadow: 
     0 0 20px var(--glow-color),
     0 0 40px var(--glow-color),
-    0 0 60px var(--glow-color);
+    0 0 60px var(--glow-color),
+    3px 3px 10px rgba(0, 0, 0, 0.95),
+    -1px -1px 5px rgba(0, 0, 0, 0.8); /* Strong shadow for readability */
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -115,64 +121,18 @@
   z-index: -2;
 }
 
-@keyframes glitch-1 {
-  0%, 100% {
-    clip: rect(0, 900px, 0, 0);
-  }
-  5% {
-    clip: rect(30px, 900px, 40px, 0);
-    transform: translate(-2px, -2px);
-  }
-  10% {
-    clip: rect(80px, 900px, 90px, 0);
-    transform: translate(2px, 2px);
-  }
-}
-
-@keyframes glitch-2 {
-  0%, 100% {
-    clip: rect(0, 900px, 0, 0);
-  }
-  7% {
-    clip: rect(50px, 900px, 60px, 0);
-    transform: translate(2px, -2px);
-  }
-  13% {
-    clip: rect(20px, 900px, 30px, 0);
-    transform: translate(-2px, 2px);
-  }
-}
-
-/* Title Underline Animation */
-.title-underline {
-  height: 3px;
-  background: linear-gradient(90deg, 
-    transparent,
-    var(--accent-color),
-    var(--primary-color),
-    var(--accent-color),
-    transparent
-  );
-  margin: 20px auto;
-  width: 0;
-  animation: expandWidth 1.5s ease-out 1s forwards;
-}
-
-@keyframes expandWidth {
-  to {
-    width: 80%;
-  }
-}
-
 /* Subtitle with Typewriter Effect */
 .subtitle {
   font-family: 'Space Mono', monospace;
-  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
   color: var(--text-secondary);
-  margin: 30px 0;
+  margin: 20px 0;
   letter-spacing: 0.05em;
   position: relative;
   overflow: hidden;
+  text-shadow: 
+    2px 2px 8px rgba(0, 0, 0, 0.95),
+    -1px -1px 4px rgba(0, 0, 0, 0.8); /* Strong shadow for readability */
 }
 
 .typewriter {
@@ -180,35 +140,28 @@
   white-space: nowrap;
   border-right: 2px solid var(--accent-color);
   animation: typing 2s steps(40, end) 1.5s both,
-             blink 0.75s step-end infinite;
+            blink 0.75s step-end infinite;
 }
 
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
 
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
-}
-
-/* Enhanced Button */
+/* --- Enhanced Button (LESS OPAQUE) --- */
 .explore-button {
-  margin-top: 40px;
+  margin-top: 30px;
   padding: 18px 50px;
   font-family: 'Orbitron', monospace;
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--text-primary);
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  border: 2px solid var(--primary-color);
+  
+  /* LESS OPAQUE BUTTON */
+  background: linear-gradient(
+    135deg, 
+    rgba(74, 144, 226, 0.3), 
+    rgba(26, 26, 46, 0.3)
+  );
+  
+  border: 2px solid rgba(74, 144, 226, 0.6);
   border-radius: 50px;
   cursor: pointer;
   position: relative;
@@ -217,9 +170,12 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 
-    0 4px 15px rgba(74, 144, 226, 0.4),
-    inset 0 0 20px rgba(255, 255, 255, 0.1);
+    0 4px 15px rgba(74, 144, 226, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .explore-button::before {
@@ -230,16 +186,21 @@
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
   transform: translate(-50%, -50%);
   transition: width 0.6s, height 0.6s;
 }
 
 .explore-button:hover {
   transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(
+    135deg, 
+    rgba(74, 144, 226, 0.5), 
+    rgba(26, 26, 46, 0.5)
+  );
   box-shadow: 
-    0 8px 25px rgba(74, 144, 226, 0.6),
-    inset 0 0 30px rgba(255, 255, 255, 0.2);
+    0 8px 25px rgba(74, 144, 226, 0.5),
+    inset 0 0 30px rgba(255, 255, 255, 0.1);
   border-color: var(--accent-color);
 }
 
@@ -258,27 +219,15 @@
   animation: arrow-bounce 0.5s ease infinite;
 }
 
-@keyframes arrow-bounce {
-  0%, 100% {
-    transform: translateX(5px);
-  }
-  50% {
-    transform: translateX(10px);
-  }
-}
-
-/* Scroll Indicator */
+/* --- Scroll Indicator Styles --- */
 .scroll-indicator {
-  position: absolute;
-  bottom: -100px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  animation: fadeInUp 1s ease 2s forwards;
-  opacity: 0;
+  opacity: 0.7;
+  animation: fadeInUp 1s ease-out 2s both;
 }
 
 .scroll-indicator span {
@@ -286,99 +235,121 @@
   font-size: 0.9rem;
   color: var(--text-secondary);
   letter-spacing: 0.05em;
+  text-shadow: 
+    2px 2px 6px rgba(0, 0, 0, 0.95),
+    -1px -1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .scroll-arrow {
   width: 20px;
   height: 20px;
-  border-right: 2px solid var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
+  border-right: 2px solid var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
   transform: rotate(45deg);
-  animation: scroll-bounce 2s ease infinite;
+  animation: scroll-bounce 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(0, 255, 136, 0.5));
 }
 
-@keyframes scroll-bounce {
-  0%, 100% {
-    transform: rotate(45deg) translateY(0);
-  }
-  50% {
-    transform: rotate(45deg) translateY(5px);
-  }
+/* --- Title Underline --- */
+.title-underline {
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  margin: 10px auto;
+  animation: expandWidth 1s ease-out 1s both;
+  box-shadow: 0 0 10px var(--accent-color);
 }
 
-/* Animations */
+
+/* --- Keyframes (Cleaned up and consolidated) --- */
+@keyframes glitch-1 {
+  0%, 100% { clip: rect(0, 900px, 0, 0); }
+  5% { clip: rect(30px, 900px, 40px, 0); transform: translate(-2px, -2px); }
+  10% { clip: rect(80px, 900px, 90px, 0); transform: translate(2px, 2px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip: rect(0, 900px, 0, 0); }
+  7% { clip: rect(50px, 900px, 60px, 0); transform: translate(2px, -2px); }
+  13% { clip: rect(20px, 900px, 30px, 0); transform: translate(-2px, 2px); }
+}
+
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 0.7;
-    bottom: 30px;
-  }
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateX(5px); }
+  50% { transform: translateX(10px); }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50% { transform: rotate(45deg) translateY(10px); }
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
   }
-  50% {
-    opacity: 0.8;
+  to { 
+    opacity: 0.7; 
+    transform: translateY(0); 
   }
 }
 
-/* Responsive Design */
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 150px; }
+}
+
+/* --- Responsive Design --- */
 @media (max-width: 768px) {
   .welcome-box {
-    padding: 40px 20px;
-    margin: 20px;
+    padding: 15px;
   }
-  
+
   .title {
-    font-size: 3rem;
+    font-size: clamp(2rem, 9vw, 3rem);
   }
-  
+
   .subtitle {
-    font-size: 1rem;
+    font-size: clamp(0.8rem, 3vw, 1.1rem);
   }
-  
+
   .explore-button {
     padding: 15px 35px;
     font-size: 1rem;
   }
 }
 
-/* Loading State */
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--secondary-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  animation: fadeOut 1s ease 2s forwards;
-}
-
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    pointer-events: none;
+@media (max-width: 480px) {
+  .welcome-box {
+    padding: 10px;
   }
-}
 
-/* Add centered-content class if not already present */
-.centered-content {
-  position: relative;
-  z-index: 100;
+  .explore-button {
+    padding: 12px 30px;
+    font-size: 0.9rem;
+  }
+
+  .scroll-indicator {
+    margin-top: 20px;
+  }
 }
