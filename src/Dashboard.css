@@ -470,3 +470,23 @@ h2 {
   font-size: 1.3rem;
   color: #00f0ff;
 }
+
+/* New styles for info box */
+.info-text {
+  margin: 2rem 0;
+  text-align: left;
+  line-height: 1.6;
+  color: #e0f7ff;
+}
+
+.info-text p {
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+}
+
+.search-portal h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}

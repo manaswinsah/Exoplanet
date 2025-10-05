@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { PerspectiveCamera, OrbitControls, Stars } from '@react-three/drei';
-import { TextureLoader, Color, Vector3, LineBasicMaterial, BufferGeometry } from 'three';
+import { TextureLoader, Color, Vector3, LineBasicMaterial, BufferGeometry, MathUtils } from 'three';
 import gsap from 'gsap';
 
 // --- Helper Components ---
@@ -108,7 +108,68 @@ function ExoplanetSystem({ result, sunRef, planetRef }) {
 
 
 // --- Main Scene Component ---
-export default function Scene({ analysisResult, viewMode }) {
+function NewStars({ mousePosition }) {
+  const ref = useRef();
+
+  useFrame(() => {
+    if (ref.current && mousePosition) {
+      ref.current.rotation.x = mousePosition.y * 0.2;
+      ref.current.rotation.y = mousePosition.x * 0.2;
+    }
+  });
+
+  return (
+    <group ref={ref}>
+      <DreiStars
+        radius={75}
+        depth={120}
+        count={7000}
+        factor={7}
+        saturation={0}
+        fade
+        speed={1}
+      />
+    </group>
+  );
+}
+
+// MovingStars component with proper THREE import
+function MovingStars({ mousePosition }) {
+  const groupRef = useRef();
+
+  useFrame(() => {
+    if (groupRef.current && mousePosition) {
+      const rotX = mousePosition.y * 0.1;
+      const rotY = mousePosition.x * 0.1;
+      groupRef.current.rotation.x = MathUtils.lerp(
+        groupRef.current.rotation.x,
+        rotX,
+        0.1
+      );
+      groupRef.current.rotation.y = MathUtils.lerp(
+        groupRef.current.rotation.y,
+        rotY,
+        0.1
+      );
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <Stars
+        radius={75}
+        depth={120}
+        count={7000}
+        factor={7}
+        saturation={0}
+        fade
+        speed={0.5}
+      />
+    </group>
+  );
+}
+
+export default function Scene({ analysisResult, viewMode, mousePosition }) {
   const cameraRef = useRef();
   const controlsRef = useRef();
   const sunRef = useRef();
@@ -149,10 +210,18 @@ export default function Scene({ analysisResult, viewMode }) {
     <Canvas style={{ position: 'absolute', top: 0, left: 0 }}>
       <color attach="background" args={['#000005']} />
       <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 5, 80]} fov={75} />
-      <OrbitControls ref={controlsRef} enablePan={true} enableZoom={true} minDistance={0.5} maxDistance={100} />
+      <OrbitControls 
+        ref={controlsRef} 
+        enablePan={true} 
+        enableZoom={true} 
+        minDistance={0.5} 
+        maxDistance={100}
+        enableDamping
+        dampingFactor={0.05}
+      />
       <ambientLight intensity={0.2} />
       <pointLight position={[0, 0, 0]} intensity={2.5} color="#FFDDC1" />
-      <Stars radius={75} depth={120} count={7000} factor={7} saturation={0} fade speed={1} />
+      <MovingStars mousePosition={mousePosition} />
       <ExoplanetSystem result={analysisResult} sunRef={sunRef} planetRef={planetRef} />
     </Canvas>
   );
