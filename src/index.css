@@ -1,0 +1,111 @@
+:root {
+  font-family: 'Exo 2', sans-serif; /* Add 'Exo 2' from Google Fonts for a sci-fi feel */
+  --glow-color: #00aaff;
+}
+
+body {
+  margin: 0;
+  background-color: #00021a;
+  color: #fff;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.ui-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none; /* Allows clicking through to the 3D canvas */
+}
+
+.title {
+  text-shadow: 0 0 10px var(--glow-color);
+}
+
+.analyze-button {
+  position: absolute;
+  bottom: 50px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  color: #fff;
+  background: rgba(0, 10, 30, 0.7);
+  border: 1px solid var(--glow-color);
+  border-radius: 5px;
+  cursor: pointer;
+  pointer-events: all; /* Make button clickable */
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+.analyze-button:hover {
+  background: var(--glow-color);
+  color: #000;
+}
+
+.results-panel {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 300px;
+  padding: 1.5rem;
+  background: rgba(10, 25, 47, 0.7);
+  border: 1px solid var(--glow-color);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.5);
+  animation: fadeIn 1s ease-in-out;
+  pointer-events: all;
+}
+
+.results-panel h3 {
+  margin-top: 0;
+  color: var(--glow-color);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Add these new styles to your existing index.css file */
+
+.mode-selector {
+  position: absolute;
+  bottom: 120px;
+  display: flex;
+  gap: 10px;
+  background: rgba(10, 25, 47, 0.7);
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--glow-color);
+  pointer-events: all;
+}
+
+.mode-button {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #fff;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.mode-button.active {
+  opacity: 1;
+  background-color: var(--glow-color);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 10px var(--glow-color);
+}
