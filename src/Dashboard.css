@@ -313,3 +313,160 @@ h2 {
   font-family: 'Exo 2', sans-serif;
 }
 
+/* Center the portal in the viewer */
+.viewer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  /* full screen height */
+  width: 100%;
+  background: radial-gradient(circle at top, #0a0f2c, #000); /* space-like bg */
+  position: relative;
+}
+
+/* Portal Card */
+.search-portal, .results-panel, .input-panel {
+  background: rgba(20, 20, 40, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(100, 200, 255, 0.3);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 420px;
+  max-width: 90%;
+  text-align: center;
+  color: #e0f7ff;
+  box-shadow: 0 0 20px rgba(0, 180, 255, 0.4), 0 0 60px rgba(0, 100, 200, 0.2);
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Toggle Buttons (Search / Classify) */
+.portal-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.toggle-button {
+  background: linear-gradient(145deg, #1e3c72, #2a5298);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.toggle-button.active,
+.toggle-button:hover {
+  background: linear-gradient(145deg, #4facfe, #00f2fe);
+  color: #000;
+  box-shadow: 0 0 10px #00f2fe;
+}
+
+/* Form Labels */
+.form-group label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #aad8ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Inputs & Selects */
+.id-input,
+.mission-dropdown,
+.classify-input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.2rem;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e0f7ff;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: inset 0 0 6px rgba(0, 200, 255, 0.3);
+  transition: 0.3s;
+}
+
+.id-input:focus,
+.mission-dropdown:focus,
+.classify-input:focus {
+  box-shadow: 0 0 10px rgba(0, 200, 255, 0.8);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Textarea */
+.classify-input {
+  resize: none;
+}
+
+/* Buttons */
+.action-button {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: 0.3s;
+  box-shadow: 0 0 12px rgba(0, 180, 255, 0.6);
+}
+
+.action-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 220, 255, 0.9);
+}
+
+/* Glow Effect for Titles */
+.glow {
+  color: #00f6ff;
+  text-shadow: 0 0 8px #00f6ff, 0 0 20px #00e0ff, 0 0 40px #00bfff;
+  letter-spacing: 1.2px;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.input-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  text-align: center;
+
+  width: 280px;                  /* smaller like a phone */
+  max-width: 90%;
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+
+  z-index: 10000;                /* above everything */
+}
+
+.input-panel h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #00f0ff;
+}
