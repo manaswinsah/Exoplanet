@@ -1,4 +1,4 @@
-/* src/Homepage2.css (FULL MODIFIED VERSION - CENTERED) */
+/* src/Homepage2.css (FULL MODIFIED VERSION - NO BOX + CLEAR PLANET) */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
 
 /* CSS Variables */
@@ -35,7 +35,7 @@
   z-index: 1;
 }
 
-/* --- UI Overlay (CENTERED) --- */
+/* --- UI Overlay --- */
 .ui-overlay {
   position: absolute;
   top: 0;
@@ -47,17 +47,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 }
 
-/* NO VISIBLE BOX - Just floating text (CENTERED) */
+/* NO VISIBLE BOX - Just floating text */
 .welcome-box {
   pointer-events: auto;
   text-align: center;
   padding: 20px;
-  max-width: 90%;
-  width: auto;
-  margin: 0 auto;
   
   /* COMPLETELY INVISIBLE BOX */
   background: transparent;
@@ -67,23 +63,12 @@
   border-radius: 0;
   box-shadow: none;
   animation: slideUp 1s ease-out 0.5s both;
-  
-  /* Ensure centering */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 /* Add centered-content class if not already present */
 .centered-content {
   position: relative;
   z-index: 100;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }
 
 
@@ -91,11 +76,6 @@
 .title-container {
   position: relative;
   margin-bottom: 20px;
-  text-align: center;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .title {
@@ -112,13 +92,11 @@
     3px 3px 10px rgba(0, 0, 0, 0.95),
     -1px -1px 5px rgba(0, 0, 0, 0.8); /* Strong shadow for readability */
   animation: pulse 2s ease-in-out infinite;
-  text-align: center;
 }
 
 /* Glitch Effect */
 .glitch {
   position: relative;
-  display: inline-block;
 }
 
 .glitch::before,
@@ -151,15 +129,14 @@
   margin: 20px 0;
   letter-spacing: 0.05em;
   position: relative;
+  overflow: hidden;
   text-shadow: 
     2px 2px 8px rgba(0, 0, 0, 0.95),
     -1px -1px 4px rgba(0, 0, 0, 0.8); /* Strong shadow for readability */
-  text-align: center;
-  width: 100%;
 }
 
 .typewriter {
-  display: inline-block;
+  animation: typing 2s steps(40, end) 1.5s both;
   white-space: nowrap;
   border-right: 2px solid var(--accent-color);
   animation: typing 2s steps(40, end) 1.5s both,
@@ -192,7 +169,6 @@
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -249,11 +225,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   opacity: 0.7;
   animation: fadeInUp 1s ease-out 2s both;
-  width: 100%;
 }
 
 .scroll-indicator span {
@@ -264,7 +238,6 @@
   text-shadow: 
     2px 2px 6px rgba(0, 0, 0, 0.95),
     -1px -1px 3px rgba(0, 0, 0, 0.8);
-  text-align: center;
 }
 
 .scroll-arrow {
@@ -350,7 +323,6 @@
 @media (max-width: 768px) {
   .welcome-box {
     padding: 15px;
-    max-width: 95%;
   }
 
   .title {
@@ -370,7 +342,6 @@
 @media (max-width: 480px) {
   .welcome-box {
     padding: 10px;
-    max-width: 98%;
   }
 
   .explore-button {
