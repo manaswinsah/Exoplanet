@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Scene from "./Scene.jsx";
-import Homepage from "./Homepage.jsx"; 
-import MainApp from "./MainApp.jsx"; // Still unused, but kept for future
+import Homepage from "./Homepage2.jsx"; 
+import MainApp from "./MainApp.jsx"; 
 
 // --- Mock Data for Demo Mode ---
 const MOCK_PLANET_DATA = {
@@ -18,7 +18,6 @@ const MOCK_FALSE_POSITIVE_DATA = {
 
 // --- Validator for Manual Mode ---
 function validateExoplanetData(_data) {
-  // For presentation purposes, this function now always returns a positive result.
   return {
     is_planet: true,
     details: "Data is consistent with a planetary body. Analysis successful.",
@@ -103,7 +102,6 @@ function DataInputForm({ formData, setFormData, onAnalyze, isAnalyzing }) {
 
 // --- Main App Component ---
 export default function App() {
-  // START WITH HOMEPAGE VISIBLE
   const [showHomepage, setShowHomepage] = useState(true); 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
@@ -116,7 +114,6 @@ export default function App() {
 
   const handleAnalyze = () => {
     setIsAnalyzing(true);
-
     setTimeout(() => {
       let result;
       if (analysisMode === "demo") {
@@ -142,18 +139,14 @@ export default function App() {
     setAnalysisResult(null);
   };
   
-  // FUNCTION TO TRANSITION TO MAIN APP
   const handleEnterApp = () => {
     setShowHomepage(false);
   };
 
   return (
     <>
-      {/* LOGIC: If showHomepage is TRUE, render Homepage. 
-        If showHomepage is FALSE, render Scene AND the main UI container. 
-      */}
       {showHomepage ? (
-        // RENDER HOMEPAGE (This is the full-screen background component)
+        // RENDER HOMEPAGE
         <Homepage onEnter={handleEnterApp} /> 
       ) : (
         // RENDER MAIN APPLICATION (Scene and UI controls)
@@ -161,7 +154,6 @@ export default function App() {
           <Scene analysisResult={analysisResult} />
 
           <div className="ui-container">
-            {/* Simple App Title */}
             <h1 className="title">Exoplanet Hunter Console</h1> 
 
             {analysisResult && (
@@ -212,4 +204,4 @@ export default function App() {
       )}
     </>
   );
-} 
+}

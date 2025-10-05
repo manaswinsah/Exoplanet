@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Scene from "./Scene.jsx";
-import Homepage from "./Homepage.jsx";
+import Homepage from "./Homepage2.jsx";
 
 
 export default function MainApp() {
